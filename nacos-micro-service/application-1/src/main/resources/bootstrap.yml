@@ -1,0 +1,21 @@
+server:
+  port: 56020
+  servlet:
+    context-path: /application1
+
+spring:
+  application:
+    name: application1
+  main:
+    allow-bean-definition-overriding: true # Springboot 2.1 需要设定  防止bean重复
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.13.5.27:8848
+        namespace: 44ffee8a-4c80-4385-ac22-1b60f8eb9921  # 连接 dev的命名空间
+        cluster-name: DEFAULT
+      config:
+        server-addr: 10.13.5.27:8848   #配置中心地址
+        file-extension: yaml
+        namespace: 44ffee8a-4c80-4385-ac22-1b60f8eb9921  # 连接 dev的命名空间
+        group: NACOS_MICROSERVICE_GROUP  #定义一个XX业务组

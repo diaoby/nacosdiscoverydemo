@@ -1,0 +1,36 @@
+server:
+  port: ${port:56030} #启动端口，命令注入
+#  servlet:
+#    context-path: /service1
+
+spring:
+  application:
+    name: service1
+  main:
+    allow-bean-definition-overriding: true # Springboot 2.1 需要设定  防止bean重复
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.13.5.27:8848
+        namespace: 44ffee8a-4c80-4385-ac22-1b60f8eb9921  # 连接 dev的命名空间
+        cluster-name: DEFAULT
+      config:
+        server-addr: 10.13.5.27:8848   #配置中心地址
+        file-extension: yaml
+        namespace: 44ffee8a-4c80-4385-ac22-1b60f8eb9921  # 连接 dev的命名空间
+        group: NACOS_MICROSERVICE_GROUP  #定义一个XX业务组
+dubbo:
+  scan:
+     # dubbo 服务扫描包
+    base-packages: com.huaxin.microservice
+  protocol:
+     # dubbo 协议
+    name: dubbo
+     # dubbo 协议端口 默认20881
+    port: ${dubbo_port:20881}
+  registry:
+    address: nacos://10.13.5.27:8848
+  application:
+    qos-enable: false #dubbo 运维服务是否开启
+  consumer:
+    check: false #启动时就否检查依赖的服务
